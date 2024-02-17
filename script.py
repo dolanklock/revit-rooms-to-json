@@ -1,23 +1,30 @@
+#IronPython
 import clr
+
+from modules import get_room_shapes,pick_parameters,send_dict
+
+
 clr.AddReferenceByPartialName('PresentationCore')
 clr.AddReferenceByPartialName('AdWindows')
 clr.AddReferenceByPartialName("PresentationFramework")
 clr.AddReferenceByPartialName('System')
 clr.AddReferenceByPartialName('System.Windows.Forms')
 
-from Autodesk.Revit import DB
-from Autodesk.Revit import UI
+
 import Autodesk
 import Autodesk.Windows as aw
+from Autodesk.Revit import DB
+from Autodesk.Revit import UI
 
 uiapp = __revit__
 uidoc = uiapp.ActiveUIDocument
 doc = uiapp.ActiveUIDocument.Document
 
-from pyrevit import forms
+
 from System.Collections.Generic import List
 
-import subprocess
+
+
 import json
 import sys
 # sys.path.append('M:\\600 VWCC\\ARCHITECTURAL\\BIM\\pykTools\\pyKTools\\MyTool.extension\\lib')
@@ -28,121 +35,6 @@ import SelectionFilters
 
 
 __author__ = "Anna Milczarek, Dolan Klock"
-
-
-def get_room_shapes(rooms, outside_boundary_only=True):
-    """_summary_
-
-    Args:
-        rooms (_type_): _description_
-        outside_boundary_only (bool, optional): _description_. Defaults to True.
-
-    Returns:
-        _type_: _description_
-    """
-    # all_rooms = DB.FilteredElementCollector(doc).OfCategory(DB.BuiltInCategory.OST_Rooms).WhereElementIsNotElementType()
-    # all_rooms_placed = [room for room in all_rooms if room.Area != 0]
-    output = {}
-    for room in rooms:
-        room_data = {}
-        boundary_locations = []
-        room_data["Number"] = room.LookupParameter("Number").AsValueString()
-        room_data["Level"] = room.LookupParameter("Level").AsValueString()        
-        try:
-            room_data["Text"] = room.LookupParameter("Text").AsValueString() if room.LookupParameter("Text").AsValueString() != None else ""
-        except:
-            room_data["Text"] = ""
-        boundary_segments = room.GetBoundarySegments(DB.SpatialElementBoundaryOptions())
-        for segment in boundary_segments[0]:
-            line = segment.GetCurve()
-            s_point_x = line.GetEndPoint(0).Multiply(304.8).X
-            s_point_y = line.GetEndPoint(0).Multiply(304.8).Y
-            e_point_x = line.GetEndPoint(1).Multiply(304.8).X
-            e_point_y = line.GetEndPoint(1).Multiply(304.8).Y
-            # if [s_point_x, s_point_y] not in boundary_locations:
-            #     boundary_locations.append([s_point_x, s_point_y])
-            # if [e_point_x, e_point_y] not in boundary_locations:
-            #     boundary_locations.append([e_point_x, e_point_y])
-            boundary_locations.append([s_point_x, s_point_y])
-            boundary_locations.append([e_point_x, e_point_y])
-        boundary_locations.append(boundary_locations[0])
-        room_data["geometry"] = boundary_locations
-        output[str(room.Id.IntegerValue)] = room_data
-    return output
-
-
-def send_dict(sent_dict, pathToScript):
-    """_summary_
-
-    Args:
-        sent_dict (_type_): _description_
-        pathToScript (_type_): _description_
-    """
-    message = json.dumps(sent_dict)
-    cmd = ['python', pathToScript, message]
-
-    # Create the subprocess startup info object This prevents the black terminal window from popping up when running hte subprocess
-    startup_info = subprocess.STARTUPINFO()
-    startup_info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-
-    # Run the command and capture the output
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startup_info)
-
-
-def pick_parameters(picked_params=["Number","Level"]):
-    """pick parameters function - accepts array of default parameters 
-
-    Args:
-        picked_params (list, optional): _description_. Defaults to ["Number","Level"].
-    """
-    Label = DB.LabelUtils
-    #Get rooms
-    all_rooms = DB.FilteredElementCollector(doc).OfCategory(DB.BuiltInCategory.OST_Rooms).WhereElementIsNotElementType()
-
-    #Take first room from list of rooms as an example room
-    example_room = [room for room in all_rooms][0]
-
-    #Create dictionary of parameters, grouped by their group (e,g Group1:[par1,par20], Group2:[par3])
-    parameters = {Label.GetLabelForGroup(param.Definition.GetGroupTypeId()):
-                [
-                p.Definition.Name for p in example_room.Parameters
-                if Label.GetLabelForGroup(p.Definition.GetGroupTypeId()) == Label.GetLabelForGroup(param.Definition.GetGroupTypeId())
-                and p.Definition.Name not in picked_params]
-                for param in example_room.Parameters}
-
-    #Sort param dictionary, param arrays and remove duplicate params
-    for group in sorted(parameters):
-            parameters[group].sort()
-            temp = set(parameters[group])
-            parameters[group] = temp
-
-    # for g in parameters:
-    #     print(g)
-    #     for p in parameters[g]:
-    #         print("---->"+p)
-    #     print("___")
-
-    #Create and add an ALL group of parameters that is formated as ALL: ["group: paramter1", "group: paramter2",etc],
-    all_parameters_group = [key+": "+value for key, array in parameters.items() for value in array]
-    all_parameters_group.sort()
-    parameters["ALL"]=all_parameters_group
-
-    #Pick parameters form
-    result = forms.SelectFromList.show(parameters,
-        "Pick Additional Parameters",
-        width = 300,
-        height = 400,
-        button_name='Next', 
-        multiselect = True,
-        group_selector_title='Parameter Groups',
-        )
-
-    if result != None:
-        #remove the group (remove everything before ": ") from each result picked from ALL category
-        result = [res.split(": ",1)[1] if ": " in res else res for res in result]
-        picked_params.extend(result)
-    
-    return(picked_params)
 
 
 if __name__ == "__main__":
