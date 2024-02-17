@@ -17,10 +17,7 @@ uiapp = __revit__
 uidoc = uiapp.ActiveUIDocument
 doc = uiapp.ActiveUIDocument.Document
 
-
-from System.Collections.Generic import List
-
-
+lections.Generic import List
 
 import json
 import sys
