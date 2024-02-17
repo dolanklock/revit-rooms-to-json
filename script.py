@@ -29,6 +29,7 @@ import json
 import sys
 # sys.path.append('M:\\600 VWCC\\ARCHITECTURAL\\BIM\\pykTools\\pyKTools\\MyTool.extension\\lib')
 sys.path.append('Y:\\pyKTools\\2024-02-17\\pyKTools\\MyTool.extension\\lib')
+import get_room_shapes
 import Selection
 import GUI
 import SelectionFilters
