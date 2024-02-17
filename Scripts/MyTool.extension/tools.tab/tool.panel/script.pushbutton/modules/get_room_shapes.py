@@ -1,6 +1,6 @@
 #IronPython
 
-def get_room_shapes(rooms, outside_boundary_only=True):
+def get_room_shapes(rooms, parameters, outside_boundary_only=True):
     """_summary_
 
     Args:
@@ -16,12 +16,13 @@ def get_room_shapes(rooms, outside_boundary_only=True):
     for room in rooms:
         room_data = {}
         boundary_locations = []
-        room_data["Number"] = room.LookupParameter("Number").AsValueString()
-        room_data["Level"] = room.LookupParameter("Level").AsValueString()        
-        try:
-            room_data["Text"] = room.LookupParameter("Text").AsValueString() if room.LookupParameter("Text").AsValueString() != None else ""
-        except:
-            room_data["Text"] = ""
+        
+        for param in parameters:
+            try:
+                room_data[param] = room.LookupParameter(param).AsValueString() if room.LookupParameter(param).AsValueString() != None else ""
+            except:
+                room_data[param] = ""
+
         boundary_segments = room.GetBoundarySegments(DB.SpatialElementBoundaryOptions())
         for segment in boundary_segments[0]:
             line = segment.GetCurve()
