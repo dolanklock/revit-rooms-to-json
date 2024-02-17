@@ -1,6 +1,5 @@
 #IronPython
 
-parameters = ["param1", "param2"]
 def get_room_shapes(rooms, parameters, outside_boundary_only=True):
     """_summary_
 
