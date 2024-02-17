@@ -30,7 +30,9 @@ import sys
 # sys.path.append('M:\\600 VWCC\\ARCHITECTURAL\\BIM\\pykTools\\pyKTools\\MyTool.extension\\lib')
 sys.path.append('Y:\\pyKTools\\2024-02-17\\pyKTools\\MyTool.extension\\lib')
 import get_room_shapes
+import pick_parameters
 import Selection
+from send_dict import send_dict
 import GUI
 import SelectionFilters
 
@@ -68,11 +70,11 @@ if __name__ == "__main__":
     else:
         sys.exit()
 
-    output_rooms = get_room_shapes(rooms, outside_boundary_only=True)
+    output_rooms = get_room_shapes.get_room_shapes(rooms, outside_boundary_only=True)
     print(output_rooms)
     
     # output_dict = {"data": {"test": 'testing'}}
-    output_dict = {"data": output_rooms, 'properties': pick_parameters()}
+    output_dict = {"data": output_rooms, 'properties': pick_parameters.pick_parameters()}
     send_dict(output_dict, pathToScript)
 
 
