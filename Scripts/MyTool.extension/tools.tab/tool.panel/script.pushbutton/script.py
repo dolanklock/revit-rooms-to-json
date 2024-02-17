@@ -17,7 +17,7 @@ uiapp = __revit__
 uidoc = uiapp.ActiveUIDocument
 doc = uiapp.ActiveUIDocument.Document
 
-lections.Generic import List
+# Selections.Generic import List
 
 import json
 import sys
