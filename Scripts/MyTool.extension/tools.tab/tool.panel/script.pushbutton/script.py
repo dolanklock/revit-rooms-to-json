@@ -65,11 +65,13 @@ if __name__ == "__main__":
     else:
         sys.exit()
 
-    output_rooms = get_room_shapes.get_room_shapes(rooms, outside_boundary_only=True)
+    properties = pick_parameters.pick_parameters()
+    
+    output_rooms = get_room_shapes.get_room_shapes(rooms,properties, outside_boundary_only=True)
     print(output_rooms)
     
     # output_dict = {"data": {"test": 'testing'}}
-    output_dict = {"data": output_rooms, 'properties': pick_parameters.pick_parameters()}
+    output_dict = {"data": output_rooms, 'properties': properties}
     send_dict(output_dict, pathToScript)
 
 
