@@ -100,3 +100,5 @@ with open(os.path.join(cur_dir, 'data.json'), 'w') as f:
     json.dump(json_received, f)
 
 # rvt_rooms_shapes(json_received, output = "both")
+    
+    
