@@ -1,9 +1,6 @@
 #IronPython
 import clr
 
-from modules import get_room_shapes,pick_parameters,send_dict
-
-
 clr.AddReferenceByPartialName('PresentationCore')
 clr.AddReferenceByPartialName('AdWindows')
 clr.AddReferenceByPartialName("PresentationFramework")
@@ -29,13 +26,14 @@ import json
 import sys
 # sys.path.append('M:\\600 VWCC\\ARCHITECTURAL\\BIM\\pykTools\\pyKTools\\MyTool.extension\\lib')
 sys.path.append('Y:\\pyKTools\\2024-02-17\\pyKTools\\MyTool.extension\\lib')
-import get_room_shapes
-import pick_parameters
+sys.path.append('./modules')
 import Selection
-from send_dict import send_dict
 import GUI
 import SelectionFilters
 
+from .modules import get_room_shapes
+import pick_parameters
+from send_dict import send_dict
 
 __author__ = "Anna Milczarek, Dolan Klock"
 
