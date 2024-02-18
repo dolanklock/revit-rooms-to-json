@@ -27,7 +27,7 @@ sys.path.append('./modules')
 import Selection
 import GUI
 
-from .modules import get_room_shapes
+from ..modules import get_room_shapes
 import pick_parameters
 from send_dict import send_dict
 
