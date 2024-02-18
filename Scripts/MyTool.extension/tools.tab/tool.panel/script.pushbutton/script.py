@@ -17,16 +17,10 @@ uiapp = __revit__
 uidoc = uiapp.ActiveUIDocument
 doc = uiapp.ActiveUIDocument.Document
 
-# Selections.Generic import List
-
 import json
 import sys
-# sys.path.append('M:\\600 VWCC\\ARCHITECTURAL\\BIM\\pykTools\\pyKTools\\MyTool.extension\\lib')
-sys.path.append('Y:\\pyKTools\\2024-02-17\\pyKTools\\MyTool.extension\\lib')
-sys.path.append('./modules')
-import Selection
-import GUI
-
+from modules import Selection
+from modules import GUI
 from modules import get_room_shapes
 from modules import pick_parameters
 from modules import send_dict
