@@ -24,7 +24,7 @@ from GetSetParameters import *
 from System.Collections.Generic import List
 from pyrevit import *
 import pyrevit
-import Schedules
+
 
 # CODE BELOW HERE #
 
