@@ -27,9 +27,9 @@ sys.path.append('./modules')
 import Selection
 import GUI
 
-from ..modules import get_room_shapes
-import pick_parameters
-from send_dict import send_dict
+from modules import get_room_shapes
+from modules import pick_parameters
+from modules import send_dict
 
 
 __author__ = "Anna Milczarek, Dolan Klock"
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     
     # output_dict = {"data": {"test": 'testing'}}
     output_dict = {"data": output_rooms, 'properties': properties}
-    send_dict(output_dict, pathToScript)
+    send_dict.send_dict(output_dict, pathToScript)
 
 
 
