@@ -26,11 +26,11 @@ sys.path.append('Y:\\pyKTools\\2024-02-17\\pyKTools\\MyTool.extension\\lib')
 sys.path.append('./modules')
 import Selection
 import GUI
-import SelectionFilters
 
 from .modules import get_room_shapes
 import pick_parameters
 from send_dict import send_dict
+
 
 __author__ = "Anna Milczarek, Dolan Klock"
 
