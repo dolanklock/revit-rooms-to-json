@@ -24,6 +24,7 @@ from modules import GUI
 from modules import get_room_shapes
 from modules import pick_parameters
 from modules import send_dict
+from modules import GetSetParameters
 
 
 __author__ = "Anna Milczarek, Dolan Klock"
