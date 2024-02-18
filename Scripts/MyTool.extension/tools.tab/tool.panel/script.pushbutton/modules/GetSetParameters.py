@@ -139,7 +139,7 @@ class GetParameter:
         element_parameter = element.LookupParameter(parameter_name)
         element_parameter_type = get_parameter_type(element_parameter)
         if element_parameter_type == 'String':
-            return element_parameter.AsString()
+            return element_parameter.AsValueString()
         elif element_parameter_type == 'Double':
             return element_parameter.AsDouble()
         elif element_parameter_type == 'Integer':
