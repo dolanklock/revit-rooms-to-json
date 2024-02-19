@@ -47,9 +47,9 @@ if __name__ == "__main__":
     elif room_selection == '2':
         all_levels = [l for l in DB.FilteredElementCollector(doc).OfCategory(DB.BuiltInCategory.OST_Levels).WhereElementIsNotElementType()]
         all_level_names = [l.get_Parameter(DB.BuiltInParameter.DATUM_TEXT).AsValueString() for l in all_levels]
-        chosen_level = GUI.user_prompt_get_object_from_names(all_levels, all_level_names, title="Choose level to get views at", multiselect=False)
-        rooms = [room for room in all_rooms_placed if room.LookupParameter('Level').AsValueString() == chosen_level.Name]
-        # chosen_views = Selection.get_views_by_level(chosen_level.get_Parameter(DB.BuiltInParameter.DATUM_TEXT).AsValueString(), plan_views=True)
+        chosen_levels = GUI.user_prompt_get_object_from_names(all_levels, all_level_names, title="Choose level to get views at", multiselect=True)
+        rooms = [room for room in all_rooms_placed if room.LookupParameter('Level').AsValueString() in [l.Name for l in chosen_levels]]
+        # chosen_views = Selection.get_views_by_level(chosen_levels.get_Parameter(DB.BuiltInParameter.DATUM_TEXT).AsValueString(), plan_views=True)
     elif room_selection == '3':
         # selectionFilter = SelectionFilters.
         # selectionFilter = SelectionFilters.CustomISelectionFilter("Rooms").AllowElement()
@@ -61,8 +61,11 @@ if __name__ == "__main__":
         sys.exit()
 
     properties = pick_parameters.pick_parameters()
-    
-    output_rooms = get_room_shapes.get_room_shapes(rooms,properties, outside_boundary_only=True)
+    room_boundary_opt = GUI.UI_two_options(title="Room Boundary Options", 
+                                           main_instruction="Get all room boundaries or outer boundary only?", 
+                                           commandlink1="Outer boundary only", 
+                                           commandlink2="All boundaries")
+    output_rooms = get_room_shapes.get_room_shapes(rooms,properties, outside_boundary_only=room_boundary_opt)
     print(output_rooms)
     
     # output_dict = {"data": {"test": 'testing'}}
@@ -75,10 +78,7 @@ if __name__ == "__main__":
 #TODO: pick parameters function pass in object to cpython
 
 #TODO: getting windows error when getting all rooms at level, figure out work around. Try
-    #  putting code in try except block and if fails then shop list in half and save the other half and send the other half again to
-    # cpython
-
-#TODO: allow selection of multiple levles
+    #  putting code in try except block and if fails then shop list in half and save the other half and send the other half again to cpython
     
 #TODO: prompt user to choose rooms with columns cut out or ignore columns (need
     #  to figure out "get_room_shapes" above function. currently it ignores int column outline and
