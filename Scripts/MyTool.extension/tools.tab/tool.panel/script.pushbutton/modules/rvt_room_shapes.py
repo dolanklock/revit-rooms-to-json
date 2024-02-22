@@ -4,12 +4,10 @@
 from geojson import Feature, Polygon, FeatureCollection, dump
 from pytopojson import topology
 from pyproj import Transformer
-from datetime import datetime
+import datetime
 import os
 
-
-def rvt_rooms_shapes(rooms_data, parameters, output = "topo") : #accepts dictionary for rooms_data, array of strings for parameters, output options can be specifified, defaults to topojson
-    output_path_root = "M:\\Project Library\\Python\\Drop Box\\" 
+def rvt_rooms_shapes(rooms_data, parameters,output_path_root, output = "topo") : #accepts dictionary for rooms_data, array of strings for parameters, output options can be specifified, defaults to topojson
 
     ouptut_options = ["topo", "geo", "both"]
     if output not in ouptut_options:
@@ -38,17 +36,21 @@ def rvt_rooms_shapes(rooms_data, parameters, output = "topo") : #accepts diction
 
             room_polygon = [] #polygon item per room(geojson)
             
-            for coord in rooms_data[room]['geometry']:
-                room_polygon.append(xy_to_decdeg(coord))
-                                 
-            room_polygon_r = room_polygon[::-1] #reverse coordinates to clockwise for outer boundary
-            feature_collection.append(Feature(geometry=Polygon([room_polygon_r]), #append polygon to feature collection of geojson
+            for polygon in rooms_data[room]['geometry']:
+                polygon_coord=[]
+                for coord in polygon:
+                    polygon_coord.append(xy_to_decdeg(coord))
+                room_polygon.append(polygon_coord)
+
+            feature_collection.append(Feature(geometry=Polygon(room_polygon), #append polygon to feature collection of geojson
                 properties={param : rooms_data[room][param] for param in parameters}                
                 ))
             
         feature_collection_all = FeatureCollection(feature_collection)  # create geojson object of floor plan
-        folder_name = '{}_{}'.format(datetime.date.today(), "test")
-
+        
+        #SAVE FILES
+        date = datetime.date.today()
+        folder_name = '{}_{}'.format(date,"export")
         try:
             os.mkdir(output_path_root+"{}".format(folder_name))
         except FileExistsError:
@@ -75,3 +77,5 @@ def rvt_rooms_shapes(rooms_data, parameters, output = "topo") : #accepts diction
             topojson = topology_({"object_name": feature_collection_all})
             with open(output_path+'\\topo-{}.json'.format(level.replace(" ", "").lower()), 'w') as f:
                 dump(topojson, f)
+
+

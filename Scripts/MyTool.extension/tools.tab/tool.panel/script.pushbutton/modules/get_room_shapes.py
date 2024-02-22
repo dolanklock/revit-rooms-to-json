@@ -1,4 +1,5 @@
 #IronPython
+#Get room data from revit
 
 import clr
 
@@ -19,7 +20,7 @@ uidoc = uiapp.ActiveUIDocument
 doc = uiapp.ActiveUIDocument.Document
 
 import GetSetParameters
-
+import circle_check
 
 def get_start_end_point(segment):
     line = segment.GetCurve()
@@ -46,6 +47,9 @@ def get_room_shapes(rooms, parameters, outside_boundary_only=True):
     for room in rooms:
         room_data = {}
         boundary_locations = []
+        outer_boundary = True #boolean required for circle check, needs to know if working with outer boundary or not
+
+        #Get room parameters from revit
         for param in parameters:
             try:
                 if GetSetParameters.get_parameter_type(room.LookupParameter(param)) == "Double":
@@ -54,22 +58,49 @@ def get_room_shapes(rooms, parameters, outside_boundary_only=True):
                     room_data[param] = room.LookupParameter(param).AsValueString() if room.LookupParameter(param).AsValueString() != None else ""
             except:
                 room_data[param] = ""
+
+        #Get room shapes from revit
         boundary_segments = room.GetBoundarySegments(DB.SpatialElementBoundaryOptions())
-        if outside_boundary_only:
-            for segment in boundary_segments[0]:
+        for boundary_segment in boundary_segments:
+            closed_loop = []
+            first = True
+
+            for segment in boundary_segment:                
                 s_point_x, s_point_y, e_point_x, e_point_y = get_start_end_point(segment)
-                boundary_locations.append([s_point_x, s_point_y])
-                boundary_locations.append([e_point_x, e_point_y])
-            print('BOUNDARIES OUTER ONLY', boundary_locations)
-            room_data["geometry"] = boundary_locations
-            output[str(room.Id.IntegerValue)] = room_data
-        else:
-            for boundary_segment in boundary_segments:
-                for segment in boundary_segment:
-                    s_point_x, s_point_y, e_point_x, e_point_y = get_start_end_point(segment)
-                    boundary_locations.append([s_point_x, s_point_y])
-                    boundary_locations.append([e_point_x, e_point_y])
-            print('BOUNDARIES ALL', boundary_locations)
-            room_data["geometry"] = boundary_locations
-            output[str(room.Id.IntegerValue)] = room_data
+                if first:
+                    closed_loop.append([s_point_x, s_point_y])
+                    first =False
+                closed_loop.append([e_point_x, e_point_y])
+                
+            #order of coordinates must be reversed, revit provides coordinates in the opposite order needed for a proper geojson/topojson file
+            boundary_locations.append(circle_check.circle_check(closed_loop[::-1],outer_boundary))
+
+            outer_boundary = False
+            #if outside boundary only, stop after first element of boundary_segments array
+            if outside_boundary_only:
+                break            
+
+        # print(boundary_locations)
+        room_data["geometry"] = boundary_locations
+        output[str(room.Id.IntegerValue)] = room_data
+
+        # if outside_boundary_only:
+        #     for segment in boundary_segments[0]:
+        #         s_point_x, s_point_y, e_point_x, e_point_y = get_start_end_point(segment)
+        #         boundary_locations.append([s_point_x, s_point_y])
+        #         boundary_locations.append([e_point_x, e_point_y])
+        #     print('BOUNDARIES OUTER ONLY', boundary_locations)
+
+        #     room_data["geometry"] = boundary_locations
+        #     output[str(room.Id.IntegerValue)] = room_data
+        # else:
+        #     for boundary_segment in boundary_segments:
+        #         for segment in boundary_segment:
+        #             s_point_x, s_point_y, e_point_x, e_point_y = get_start_end_point(segment)
+        #             boundary_locations.append([s_point_x, s_point_y])
+        #             boundary_locations.append([e_point_x, e_point_y])
+
+        #     print('BOUNDARIES ALL', boundary_locations)
+        #     room_data["geometry"] = boundary_locations
+        #     output[str(room.Id.IntegerValue)] = room_data
     return output
