@@ -4,10 +4,9 @@
 from geojson import Feature, Polygon, FeatureCollection, dump
 from pytopojson import topology
 from pyproj import Transformer
-import datetime
 import os
 
-def rvt_rooms_shapes(rooms_data, parameters,output_path_root, output = "topo") : #accepts dictionary for rooms_data, array of strings for parameters, output options can be specifified, defaults to topojson
+def rvt_rooms_shapes(rooms_data, parameters,output_path_root,output = "topo") : #accepts dictionary for rooms_data, array of strings for parameters, output options can be specifified, defaults to topojson
 
     ouptut_options = ["topo", "geo", "both"]
     if output not in ouptut_options:
@@ -49,15 +48,14 @@ def rvt_rooms_shapes(rooms_data, parameters,output_path_root, output = "topo") :
         feature_collection_all = FeatureCollection(feature_collection)  # create geojson object of floor plan
         
         #SAVE FILES
-        date = datetime.date.today()
-        folder_name = '{}_{}'.format(date,"export")
+       
         try:
-            os.mkdir(output_path_root+"{}".format(folder_name))
+            os.mkdir(output_path_root)
         except FileExistsError:
             pass
         
         if output == "geo" or output == "both": #output geojson
-            output_path = output_path_root+"{}\\geo".format(folder_name)            
+            output_path = output_path_root+"\\geo"          
             try:
                 os.mkdir(output_path)
             except FileExistsError:
@@ -67,7 +65,7 @@ def rvt_rooms_shapes(rooms_data, parameters,output_path_root, output = "topo") :
                 dump(feature_collection_all, f)
 
         if output == "topo" or output == "both": #output topojson
-            output_path = output_path_root+"{}\\topo".format(folder_name)
+            output_path = output_path_root+"\\topo"
             try:
                 os.mkdir(output_path)
             except FileExistsError:

@@ -21,5 +21,5 @@ room_data = json_received["room_data"]
 export_path = json_received["export_dir"]
 
 output = "both"
-rvt_room_shapes.rvt_rooms_shapes(room_data,parameters,export_path, output)
+rvt_room_shapes.rvt_rooms_shapes(room_data,parameters,export_path,output)
     
