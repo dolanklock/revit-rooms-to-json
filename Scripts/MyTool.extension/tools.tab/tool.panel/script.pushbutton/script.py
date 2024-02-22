@@ -18,8 +18,10 @@ uidoc = uiapp.ActiveUIDocument
 doc = uiapp.ActiveUIDocument.Document
 
 from pyrevit import forms
+
 import json
 import sys
+import datetime
 from modules import Selection
 from modules import GUI
 from modules import get_room_shapes
@@ -61,7 +63,6 @@ if __name__ == "__main__":
     else:
         sys.exit()
 
-    
     room_boundary_opt = GUI.UI_two_options(title="Room Boundary Options", 
                                            main_instruction="Export outer boundaries only?", 
                                            commandlink1="Yes, outer boundaries only", 
@@ -74,9 +75,17 @@ if __name__ == "__main__":
     
     print("loading...")
 
-    output_dict = {"room_data": output_rooms, 'parameters': properties, "export_dir" : root_dir}
+  
+
+
+
+    date = datetime.date.today()
+    folder_name = '{}_{}'.format(doc.Title,date)
+    export_path = root_dir+folder_name+"\\"
+    
+    output_dict = {"room_data": output_rooms, 'parameters': properties, "export_dir" : export_path}
     send_dict.send_dict(output_dict, pathToScript)
-    print("EXPORT AT: "+ root_dir)
+    print("EXPORT FOLDER LOCATION: "+ export_path)
     
 
 
@@ -85,4 +94,3 @@ if __name__ == "__main__":
 #TODO: getting windows error when getting all rooms at level, figure out work around. Try
     #  putting code in try except block and if fails then shop list in half and save the other half and send the other half again to cpython
 
-#TODO: get name of revit file and include it in export name
