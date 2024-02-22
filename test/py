@@ -1,0 +1,23 @@
+import matplotlib.pyplot as plt
+
+# Coordinates
+coordinates =          [
+            [0.054994, 0.012203],
+            [0.03595, 0.012203],
+            [0.03595, 0.022264],
+            [0.054994, 0.022264],
+            [0.054994, 0.012203]
+          ]
+# Extract x and y coordinates
+x_coords = [coord[0] for coord in coordinates]
+y_coords = [coord[1] for coord in coordinates]
+
+# Plot
+plt.figure(figsize=(8, 6))
+plt.plot(x_coords, y_coords, 'bo-')
+plt.title('Polygon from given coordinates')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.grid(True)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()

@@ -17,6 +17,7 @@ uiapp = __revit__
 uidoc = uiapp.ActiveUIDocument
 doc = uiapp.ActiveUIDocument.Document
 
+from pyrevit import forms
 import json
 import sys
 from modules import Selection
@@ -60,28 +61,28 @@ if __name__ == "__main__":
     else:
         sys.exit()
 
-    properties = pick_parameters.pick_parameters()
-    room_boundary_opt = GUI.UI_two_options(title="Room Boundary Options", 
-                                           main_instruction="Get all room boundaries or outer boundary only?", 
-                                           commandlink1="Outer boundary only", 
-                                           commandlink2="All boundaries")
-    output_rooms = get_room_shapes.get_room_shapes(rooms,properties, outside_boundary_only=room_boundary_opt)
-    print(output_rooms)
     
-    # output_dict = {"data": {"test": 'testing'}}
-    output_dict = {"data": output_rooms, 'properties': properties}
-    send_dict.send_dict(output_dict, pathToScript)
+    room_boundary_opt = GUI.UI_two_options(title="Room Boundary Options", 
+                                           main_instruction="Export outer boundaries only?", 
+                                           commandlink1="Yes, outer boundaries only", 
+                                           commandlink2="No, include inner boundaries")
+    properties = pick_parameters.pick_parameters()
 
+    output_rooms = get_room_shapes.get_room_shapes(rooms,properties,room_boundary_opt)
+    
+    root_dir = forms.pick_folder(title=None, owner=None) +"\\"
+    
+    print("loading...")
+
+    output_dict = {"room_data": output_rooms, 'parameters': properties, "export_dir" : root_dir}
+    send_dict.send_dict(output_dict, pathToScript)
+    print("EXPORT AT: "+ root_dir)
+    
 
 
 #TODO: test
-#TODO: pick parameters function pass in object to cpython
 
 #TODO: getting windows error when getting all rooms at level, figure out work around. Try
     #  putting code in try except block and if fails then shop list in half and save the other half and send the other half again to cpython
-    
-#TODO: prompt user to choose rooms with columns cut out or ignore columns (need
-    #  to figure out "get_room_shapes" above function. currently it ignores int column outline and
-    #  only gets the outside room boundary. I had it where it got both, need to tweak code to achieve that)
 
-# outside boundary counter clockwise and inner clockwise
+#TODO: get name of revit file and include it in export name

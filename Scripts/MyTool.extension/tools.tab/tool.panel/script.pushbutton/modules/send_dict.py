@@ -10,9 +10,7 @@ def send_dict(sent_dict, pathToScript):
         sent_dict (_type_): _description_
         pathToScript (_type_): _description_
     """
-    # print("*"*80)
-    # print(sent_dict)
-    # print("*"*80)
+   
     message = json.dumps(sent_dict)
     cmd = ['python', pathToScript, message]
 

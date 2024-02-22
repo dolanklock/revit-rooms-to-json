@@ -35,12 +35,6 @@ def pick_parameters(picked_params=["Number","Level"]):
             temp = set(parameters[group])
             parameters[group] = temp
 
-    # for g in parameters:
-    #     print(g)
-    #     for p in parameters[g]:
-    #         print("---->"+p)
-    #     print("___")
-
     #Create and add an ALL group of parameters that is formated as ALL: ["group: paramter1", "group: paramter2",etc],
     all_parameters_group = [key+": "+value for key, array in parameters.items() for value in array]
     all_parameters_group.sort()
