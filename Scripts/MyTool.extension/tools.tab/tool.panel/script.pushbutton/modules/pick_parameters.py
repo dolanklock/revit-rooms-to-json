@@ -45,11 +45,12 @@ def pick_parameters(picked_params=["Number","Level"]):
         "Pick Additional Parameters",
         width = 300,
         height = 400,
-        button_name='Next', 
+        button_name='Ok', 
         multiselect = True,
         group_selector_title='Parameter Groups',
+        modal=True
         )
-
+    
     if result != None:
         #remove the group (remove everything before ": ") from each result picked from ALL category
         result = [res.split(": ",1)[1] if ": " in res else res for res in result]

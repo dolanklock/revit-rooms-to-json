@@ -15,6 +15,7 @@ uidoc = uiapp.ActiveUIDocument
 doc = uiapp.ActiveUIDocument.Document
 
 from pyrevit import forms
+from rpw.ui.forms import CommandLink, TaskDialog
 
 # CODE BELOW HERE #
 
@@ -23,6 +24,17 @@ class OptionsLineStyle(forms.TemplateListItem):
     @property
     def name(self):
         return self.Name
+
+def UI_options(title="",opts = ["opt1","opt2"]):
+    command_links= [CommandLink(opt) for opt in opts]
+
+    dialog = TaskDialog(title,
+                    title_prefix=False,
+                    commands=command_links,
+                    buttons=['Cancel'],
+                    show_close=False)
+    
+    return dialog.show()
 
 def UI_two_options(title="", main_instruction="", commandlink1="", commandlink2=""):
     """UI prompt for user to input the two command options in UI dialog. Will return True if command1link chosen
@@ -74,6 +86,7 @@ def UI_three_options(title="", main_instruction="", commandlink1="", commandlink
         return '2'
     else:
         return '3'
+
 
 
 def UI_four_options(title="", main_instruction="", commandlink1="", commandlink2="", commandlink3="", commandlink4=""):

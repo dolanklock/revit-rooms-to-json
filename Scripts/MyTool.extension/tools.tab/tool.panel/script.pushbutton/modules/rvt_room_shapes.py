@@ -47,8 +47,7 @@ def rvt_rooms_shapes(rooms_data, parameters,output_path_root,output = "topo") : 
             
         feature_collection_all = FeatureCollection(feature_collection)  # create geojson object of floor plan
         
-        #SAVE FILES
-       
+        #SAVE FILES       
         try:
             os.mkdir(output_path_root)
         except FileExistsError:
