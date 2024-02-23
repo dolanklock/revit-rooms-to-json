@@ -19,7 +19,7 @@ with open(os.path.join(cur_dir, 'data.json'), 'w') as f:
 parameters = json_received["parameters"]
 room_data = json_received["room_data"]
 export_path = json_received["export_dir"]
+output = json_received["export_format"]
 
-output = "both"
 rvt_room_shapes.rvt_rooms_shapes(room_data,parameters,export_path,output)
     
