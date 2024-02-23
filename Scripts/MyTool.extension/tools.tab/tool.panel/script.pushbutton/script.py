@@ -83,8 +83,8 @@ if __name__ == "__main__":
     all_rooms = DB.FilteredElementCollector(doc).OfCategory(DB.BuiltInCategory.OST_Rooms).WhereElementIsNotElementType()
     all_rooms_placed = [room for room in all_rooms if room.Area != 0]
 
-    room_selection = user_input['user_room_selection']
-    rooms = room_selection(doc, uidoc, room_selection, all_rooms_placed)
+    room_select_by = user_input['user_room_selection']
+    rooms = room_selection(doc, uidoc, room_select_by, all_rooms_placed)
    
     #Select output location
     user_dir = forms.pick_folder(title=None, owner=None)
