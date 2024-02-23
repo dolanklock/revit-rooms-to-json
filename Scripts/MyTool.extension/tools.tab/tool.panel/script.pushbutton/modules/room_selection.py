@@ -3,7 +3,7 @@ from Autodesk.Revit import DB
 import sys
 import GUI
 import Selection
-import SelectionFilter
+import SelectionFilters
 
 def room_selection(doc, uidoc, select_by, all_rooms_placed):  
     if select_by == 'All':
@@ -16,14 +16,7 @@ def room_selection(doc, uidoc, select_by, all_rooms_placed):
     elif select_by == 'By Selection':
         # Prompt the user to select room elements
         rooms = [doc.GetElement(ref.ElementId) for ref in uidoc.Selection.PickObjects(Autodesk.Revit.UI.Selection.ObjectType.Element,
-                                                                                       SelectionFilter.SelectionFilterRooms(), "Select rooms")]
-        # rooms = [doc.GetElement(ref_id.ElementId) for ref_id in uidoc.Selection.PickObjects(Autodesk.Revit.UI.Selection.ObjectType.Element, "Select Rooms")]
+                                                                                       SelectionFilters.SelectionFilterRooms(), "Select rooms")]
     else:
         sys.exit()
     return rooms
-
-# selectionFilter = SelectionFilters.
-# selectionFilter = SelectionFilters.CustomISelectionFilter("Rooms").AllowElement()
-# rooms = Autodesk.Revit.UI.Selection.Selection.PickObjects(Autodesk.Revit.UI.Selection.ObjectType.Element,
-#                                                            SelectionFilters.ISelectionFilter('Rooms'))
-# rooms = uidoc.Selection.PickElementsByRectangle(selectionFilter, "Select Rooms")

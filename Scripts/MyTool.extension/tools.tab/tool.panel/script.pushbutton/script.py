@@ -31,7 +31,7 @@ from modules import get_room_shapes
 from modules import pick_parameters
 from modules import send_dict
 from modules import GetSetParameters
-
+from modules.room_selection import room_selection
 
 __author__ = "Anna Milczarek, Dolan Klock"
 
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     folder_name = '{}_{}'.format(doc.Title,date)
 
     #Default parameters selected
-    parameters_selected=["Number","Level"]
+    parameters_selected = ["Number","Level"]
     def_params = parameters_selected[::]
 
     #Button class for buttons used in flex form
@@ -84,23 +84,7 @@ if __name__ == "__main__":
     all_rooms_placed = [room for room in all_rooms if room.Area != 0]
 
     room_selection = user_input['user_room_selection']
-    if room_selection == 'All':
-        rooms = Selection.GetElementsFromDoc.all_rooms(doc, is_placed_only=True)
-    elif room_selection == 'By Level':
-        all_levels = [l for l in DB.FilteredElementCollector(doc).OfCategory(DB.BuiltInCategory.OST_Levels).WhereElementIsNotElementType()]
-        all_level_names = [l.get_Parameter(DB.BuiltInParameter.DATUM_TEXT).AsValueString() for l in all_levels]
-        chosen_levels = GUI.user_prompt_get_object_from_names(all_levels, all_level_names, title="Choose level to get views at", multiselect=True)
-        rooms = [room for room in all_rooms_placed if room.LookupParameter('Level').AsValueString() in [l.Name for l in chosen_levels]]
-        # chosen_views = Selection.get_views_by_level(chosen_levels.get_Parameter(DB.BuiltInParameter.DATUM_TEXT).AsValueString(), plan_views=True)
-    elif room_selection == 'By Selection':
-        # selectionFilter = SelectionFilters.
-        # selectionFilter = SelectionFilters.CustomISelectionFilter("Rooms").AllowElement()
-        # rooms = Autodesk.Revit.UI.Selection.Selection.PickObjects(Autodesk.Revit.UI.Selection.ObjectType.Element,
-        #                                                            SelectionFilters.ISelectionFilter('Rooms'))
-        # rooms = uidoc.Selection.PickElementsByRectangle(selectionFilter, "Select Rooms")
-        rooms = [doc.GetElement(ref_id.ElementId) for ref_id in uidoc.Selection.PickObjects(Autodesk.Revit.UI.Selection.ObjectType.Element, "Select Rooms")]
-    else:
-        sys.exit()
+    rooms = room_selection(doc, uidoc, room_selection, all_rooms_placed)
    
     #Select output location
     user_dir = forms.pick_folder(title=None, owner=None)
@@ -108,11 +92,10 @@ if __name__ == "__main__":
         sys.exit()
     root_dir = user_dir +"\\"
     
-
     print("loading...")
 
     #Get Room data from revit
-    output_rooms = get_room_shapes.get_room_shapes(rooms,parameters_selected,user_input['user_inner_boundary'])
+    output_rooms = get_room_shapes.get_room_shapes(rooms, parameters_selected,user_input['user_inner_boundary'])
     
     #Send data to C python file
     output_dict = {"room_data": output_rooms, 'parameters': parameters_selected, "export_dir" : root_dir+folder_name+"\\" ,"export_format" : user_input['user_file_export']}
