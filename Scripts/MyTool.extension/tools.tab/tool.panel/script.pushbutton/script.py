@@ -25,12 +25,9 @@ from rpw.ui.forms.resources import *
 import json
 import sys
 import datetime
-from modules import Selection
-from modules import GUI
 from modules import get_room_shapes
 from modules import pick_parameters
 from modules import send_dict
-from modules import GetSetParameters
 from modules.room_selection import room_selection
 
 __author__ = "Anna Milczarek, Dolan Klock"
