@@ -15,7 +15,7 @@ uidoc = uiapp.ActiveUIDocument
 doc = uiapp.ActiveUIDocument.Document
 
 from pyrevit import forms
-from rpw.ui.forms import CommandLink, TaskDialog
+from rpw.ui.forms import CommandLink, TaskDialog, Alert
 
 # CODE BELOW HERE #
 
@@ -25,6 +25,14 @@ class OptionsLineStyle(forms.TemplateListItem):
     def name(self):
         return self.Name
 
+def text_wrap(string,char="\n",interval=54):
+    #amount of new char added --> (length minus starting point / step )
+    #new length --> amount of new char added + existing length of string
+    length = (len(string) - interval ) / (interval+len(char) ) + len(string)
+    for pos in range(interval,length,interval+len(char)):
+        string = string[:pos] + char + string[pos:]   
+    return string
+    
 def UI_options(title="",opts = ["opt1","opt2"]):
     command_links= [CommandLink(opt) for opt in opts]
 
@@ -36,6 +44,12 @@ def UI_options(title="",opts = ["opt1","opt2"]):
     
     return dialog.show()
 
+def task_terminated():
+    Alert("Close to exit",title='Task terminated', header='Task terminated by user', exit=True)
+
+def task_complete(message = "" , title = "Task complete", header = 'Task complete'):
+    Alert(message, title=title, header=header, exit=False)
+                   
 def UI_two_options(title="", main_instruction="", commandlink1="", commandlink2=""):
     """UI prompt for user to input the two command options in UI dialog. Will return True if command1link chosen
     else returns False
@@ -145,7 +159,7 @@ def ask_for_bool(title="", main_instruction=""):
         return True
     return False    
 
-def user_prompt_get_object_from_names(obj_elements, obj_names, title="", multiselect=False):
+def user_prompt_get_object_from_names(obj_elements, obj_names, title="", multiselect=False , width = 300, height = 400):
     """
     take in the objects and the list of names of the objects that you want to be displayed to the user
     and then orders the objects alphabetically and gets user to select one and then returns selection
@@ -153,13 +167,16 @@ def user_prompt_get_object_from_names(obj_elements, obj_names, title="", multise
     # print('testing')
     output = []
     obj_names_ordered = sorted(obj_names, key=lambda x: x[0])
-    input_obj_names = forms.SelectFromList.show(obj_names_ordered, title=title, multiselect=multiselect)
+    input_obj_names = forms.SelectFromList.show(obj_names_ordered, title=title, multiselect=multiselect, width = width, height = height)
+    if input_obj_names == None:
+        Alert("Close to exit",title='Selection empty', header='No objects in selection', exit=True)
     if multiselect:
         for obj in input_obj_names:
             output.append(obj_elements[obj_names.index(obj)])
         return output
     else:
         return obj_elements[obj_names.index(input_obj_names)]
+        
   
     
 def UI_multi_text_input():
