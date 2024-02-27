@@ -36,7 +36,7 @@ __author__ = "Anna Milczarek, Dolan Klock"
 
 
 if __name__ == "__main__":
-    #Change directory to script folder
+    #Directory to C python script
     cur_dir = sys.path[0]
     pathToScript = cur_dir+"\\scriptCPython.py"
 
@@ -101,8 +101,7 @@ if __name__ == "__main__":
         #sys.exit()
     root_dir = user_dir +"\\"
     
-    with forms.ProgressBar(title='Loading...', indeterminate=True):
-
+    with forms.ProgressBar(title='Loading...', indeterminate=True): #show progress bar
         #Get Room data from revit
         output_rooms = get_room_shapes.get_room_shapes(rooms, parameters_selected,user_input['user_inner_boundary'])
         
@@ -113,6 +112,5 @@ if __name__ == "__main__":
     GUI.task_complete("EXPORT FOLDER LOCATION: \n{}".format(GUI.text_wrap(root_dir+folder_name+"\\")),header="DATA EXPORTED :)") 
     
 
+#TODO: get a way for users to easily get all dependencies
 
-#TODO: getting windows error when getting all rooms at level, figure out work around. Try
-    #  putting code in try except block and if fails then shop list in half and save the other half and send the other half again to cpython
