@@ -19,10 +19,8 @@ def rvt_rooms_shapes(rooms_data, parameters,output_path_root,output = "topo") : 
     #group rooms per level
     rooms_per_level = {} #dict grouping rooms per level {level :[room, room], level :[room ,room]}
     for key, value in rooms_data.items():
-        if value["Level"] not in rooms_per_level:
-            rooms_per_level[value["Level"]] = [key]
-        else:
-            rooms_per_level[value["Level"]].append(key)
+        rooms_per_level.setdefault(value["Level"], []).append(key)
+    print(rooms_per_level)
 
     #for each level, go through each room, extract parameters and create a feature_collection item (geojson item https://datatracker.ietf.org/doc/html/rfc7946)
     for level in rooms_per_level:
@@ -36,10 +34,7 @@ def rvt_rooms_shapes(rooms_data, parameters,output_path_root,output = "topo") : 
             room_polygon = [] #polygon item per room(geojson)
             
             for polygon in rooms_data[room]['geometry']:
-                polygon_coord=[]
-                for coord in polygon:
-                    polygon_coord.append(xy_to_decdeg(coord))
-                room_polygon.append(polygon_coord)
+                room_polygon.append([xy_to_decdeg(coord) for coord in polygon])
 
             feature_collection.append(Feature(geometry=Polygon(room_polygon), #append polygon to feature collection of geojson
                 properties={param : rooms_data[room][param] for param in parameters}                
