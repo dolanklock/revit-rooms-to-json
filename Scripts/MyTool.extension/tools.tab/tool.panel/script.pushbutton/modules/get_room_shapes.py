@@ -62,20 +62,15 @@ def get_room_shapes(rooms, parameters, outside_boundary_only=True):
         #Get room shapes from revit
         boundary_segments = room.GetBoundarySegments(DB.SpatialElementBoundaryOptions())
         for boundary_segment in boundary_segments:
-            closed_loop = []
-            first = True
-
-            for segment in boundary_segment:                
-                s_point_x, s_point_y, e_point_x, e_point_y = get_start_end_point(segment)
-                if first:
-                    closed_loop.append([s_point_x, s_point_y])
-                    first =False
-                closed_loop.append([e_point_x, e_point_y])
-                
+            #get_start_end_point returns a tuple of length 4, the first two correspond to x,y of starting point, the last two correspond to x,y of ending point    
+            starting_point = list(get_start_end_point(boundary_segment[0])[:2]) #get x,y of starting point of line at first boundary segment
+            closed_loop = [starting_point] + [list(get_start_end_point(segment)[-2:]) for segment in boundary_segment] #get x,y coord of ending point of line of remaining boundary
+                            
             #order of coordinates must be reversed, revit provides coordinates in the opposite order needed for a proper geojson/topojson file
             boundary_locations.append(circle_check.circle_check(closed_loop[::-1],outer_boundary))
 
-            outer_boundary = False
+            outer_boundary = False #required for circle check, once the first boundary is created, outer_boundary is false for the rest of the boundaries of the polygon
+
             #if outside boundary only, stop after first element of boundary_segments array
             if outside_boundary_only:
                 break            
