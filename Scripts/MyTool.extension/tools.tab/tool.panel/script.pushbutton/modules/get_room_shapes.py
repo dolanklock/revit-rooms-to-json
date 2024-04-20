@@ -20,9 +20,9 @@ uidoc = uiapp.ActiveUIDocument
 doc = uiapp.ActiveUIDocument.Document
 
 import GetSetParameters
-import circle_check
+import arc_segment_conversion
 
-def get_start_end_point(segment):
+def get_start_end_point(segment):    
     line = segment.GetCurve()
     s_point_x = line.GetEndPoint(0).Multiply(304.8).X
     s_point_y = line.GetEndPoint(0).Multiply(304.8).Y
@@ -30,6 +30,15 @@ def get_start_end_point(segment):
     e_point_y = line.GetEndPoint(1).Multiply(304.8).Y
     return (s_point_x, s_point_y, e_point_x, e_point_y)
 
+def generate_endpoints(segment,is_outer):
+    #if segment is an arc, convert the arc and return a list of coordinates representing the arc
+    if segment.GetCurve().GetType() == Autodesk.Revit.DB.Arc:        
+        endpoints = arc_segment_conversion.arc_segment_conversion(segment,full_circle=False,is_outer_boundary = is_outer)     
+        return endpoints
+    
+    #if segment is a straight line return a list containing one endpoint
+    endpoints = [list(get_start_end_point(segment)[-2:])]
+    return endpoints
 
 def get_room_shapes(rooms, parameters, outside_boundary_only=True):
     """_summary_
@@ -41,13 +50,11 @@ def get_room_shapes(rooms, parameters, outside_boundary_only=True):
     Returns:
         _type_: _description_
     """
-    # all_rooms = DB.FilteredElementCollector(doc).OfCategory(DB.BuiltInCategory.OST_Rooms).WhereElementIsNotElementType()
-    # all_rooms_placed = [room for room in all_rooms if room.Area != 0]
     output = {}
     for room in rooms:
         room_data = {}
         boundary_locations = []
-        outer_boundary = True #boolean required for circle check, needs to know if working with outer boundary or not
+        outer_boundary = True #boolean required for coordinate order of arc segment conversion
 
         #Get room parameters from revit
         for param in parameters:
@@ -61,41 +68,30 @@ def get_room_shapes(rooms, parameters, outside_boundary_only=True):
 
         #Get room shapes from revit
         boundary_segments = room.GetBoundarySegments(DB.SpatialElementBoundaryOptions())
-        for boundary_segment in boundary_segments:
-            #get_start_end_point returns a tuple of length 4, the first two correspond to x,y of starting point, the last two correspond to x,y of ending point    
-            starting_point = list(get_start_end_point(boundary_segment[0])[:2]) #get x,y of starting point of line at first boundary segment
-            closed_loop = [starting_point] + [list(get_start_end_point(segment)[-2:]) for segment in boundary_segment] #get x,y coord of ending point of line of remaining boundary
-                            
-            #order of coordinates must be reversed, revit provides coordinates in the opposite order needed for a proper geojson/topojson file
-            boundary_locations.append(circle_check.circle_check(closed_loop[::-1],outer_boundary))
 
-            outer_boundary = False #required for circle check, once the first boundary is created, outer_boundary is false for the rest of the boundaries of the polygon
+        #convert room shapes from revit to sets of polygons formed from coordinates
+        for boundary_segment in boundary_segments:
+
+            #if the boundary segment is a full circle, convert to a loop of coordinates representing the circle
+            if boundary_segment[0].GetCurve().GetType() == Autodesk.Revit.DB.Arc:                
+                closed_loop = arc_segment_conversion.arc_segment_conversion(boundary_segment[0])
+
+            #if the boundary segment is not a circle generate coordinates
+            else:  
+                #get_start_end_point returns a tuple of length 4, the first two correspond to x,y of starting point, the last two correspond to x,y of ending point    
+                starting_point = list(get_start_end_point(boundary_segment[0])[:2]) #get x,y of starting point of line at first boundary segment
+                closed_loop = [starting_point] + [endpoints for segment in boundary_segment for endpoints in generate_endpoints(segment,outer_boundary)] #get x,y coord of ending point of line of remaining segments
+            
+            #order of coordinates must be reversed, Revit provides coordinates in the opposite order needed for a proper geojson/topojson file
+            boundary_locations.append(closed_loop[::-1])
 
             #if outside boundary only, stop after first element of boundary_segments array
             if outside_boundary_only:
+                outer_boundary = False #required for arc segment conversions for order of coordinates
                 break            
 
         # print(boundary_locations)
         room_data["geometry"] = boundary_locations
         output[str(room.Id.IntegerValue)] = room_data
 
-        # if outside_boundary_only:
-        #     for segment in boundary_segments[0]:
-        #         s_point_x, s_point_y, e_point_x, e_point_y = get_start_end_point(segment)
-        #         boundary_locations.append([s_point_x, s_point_y])
-        #         boundary_locations.append([e_point_x, e_point_y])
-        #     print('BOUNDARIES OUTER ONLY', boundary_locations)
-
-        #     room_data["geometry"] = boundary_locations
-        #     output[str(room.Id.IntegerValue)] = room_data
-        # else:
-        #     for boundary_segment in boundary_segments:
-        #         for segment in boundary_segment:
-        #             s_point_x, s_point_y, e_point_x, e_point_y = get_start_end_point(segment)
-        #             boundary_locations.append([s_point_x, s_point_y])
-        #             boundary_locations.append([e_point_x, e_point_y])
-
-        #     print('BOUNDARIES ALL', boundary_locations)
-        #     room_data["geometry"] = boundary_locations
-        #     output[str(room.Id.IntegerValue)] = room_data
     return output
