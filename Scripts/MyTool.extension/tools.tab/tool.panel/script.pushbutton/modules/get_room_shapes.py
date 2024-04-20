@@ -1,5 +1,6 @@
 #IronPython
 #Get room data from revit
+#DOES NOT handle eliptical shapes (splines)
 
 import clr
 
@@ -32,7 +33,7 @@ def get_start_end_point(segment):
 
 def generate_endpoints(segment,is_outer):
     #if segment is an arc, convert the arc and return a list of coordinates representing the arc
-    if segment.GetCurve().GetType() == Autodesk.Revit.DB.Arc:        
+    if segment.GetCurve().GetType() == Autodesk.Revit.DB.Arc:     
         endpoints = arc_segment_conversion.arc_segment_conversion(segment,full_circle=False,is_outer_boundary = is_outer)     
         return endpoints
     
@@ -73,7 +74,7 @@ def get_room_shapes(rooms, parameters, outside_boundary_only=True):
         for boundary_segment in boundary_segments:
 
             #if the boundary segment is a full circle, convert to a loop of coordinates representing the circle
-            if boundary_segment[0].GetCurve().GetType() == Autodesk.Revit.DB.Arc:                
+            if boundary_segment[0].GetCurve().GetType() == Autodesk.Revit.DB.Arc:            
                 closed_loop = arc_segment_conversion.arc_segment_conversion(boundary_segment[0])
 
             #if the boundary segment is not a circle generate coordinates
