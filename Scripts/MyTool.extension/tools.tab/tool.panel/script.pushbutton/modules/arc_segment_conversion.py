@@ -28,8 +28,8 @@ def get_all_circle_coords(segment,n_points = 32,full_circle = True):
 
     #if full circle, generate thetas for circle based on n points
     if full_circle:
-        ##THETAS GENERATED HERE ##
-        thetas = [i/float(n_points) * tau for i in range(n_points)]
+        start_theta = 0
+        step_theta = tau
     
     #if not closed circle generate thetas from start and end point based on n points
     else:
@@ -43,16 +43,19 @@ def get_all_circle_coords(segment,n_points = 32,full_circle = True):
         # Swap arc if needed (convex vs concave)
         arc_length_start = get_arc_length(start_theta, end_theta, radius)
         arc_length_end = tau * radius - arc_length_start
+        new_arc_length = arc_length_start
         if abs(arc_length_start - arc_length) > abs(arc_length_end - arc_length):
+            new_arc_length = arc_length_end
             end_theta += tau
-        step_theta = (end_theta - start_theta) / n_points
 
-        ##THETAS GENERATED HERE ##
-        thetas = [start_theta + i * step_theta for i in range(n_points + 1)]
+        n_points = int(math.ceil(n_points / (radius * tau / new_arc_length)))
+        n_points +=1 if n_points <2 else n_points #have a minimum of two segments
+        step_theta = (end_theta - start_theta)
 
+    ##THETAS GENERATED HERE ##
+    thetas = [start_theta + i * step_theta / float(n_points) for i in range(n_points + 1)]
     circle_coords = [get_circle_coord(theta, x_center, y_center, radius) for theta in thetas]
-    closed_loop_coord = [circle_coords[0]] if full_circle else [] #if full circle need to close the loop by having the same endpoint at start and end of loop
-    return circle_coords + closed_loop_coord
+    return circle_coords 
     
 #CONVERTS ARC TO COORDINATES REPRESENTING SEGMENTS CLOSEST TO THE ARC SHAPE
 def arc_segment_conversion(segment,is_outer_boundary=False,full_circle=True): 
