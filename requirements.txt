@@ -1,0 +1,4 @@
+clr==1.0.3
+geojson==3.1.0
+pyproj==3.6.1
+pytopojson==1.1.2

@@ -32,7 +32,7 @@ def get_start_end_point(segment):
     return (s_point_x, s_point_y, e_point_x, e_point_y)
 
 def generate_endpoints(segment,is_outer):
-    #if segment is an arc, convert the arc and return a list of coordinates representing the arc
+    #if segment is an arc, convert the arc and return a list of endpoint coordinates representing the arc
     if segment.GetCurve().GetType() == Autodesk.Revit.DB.Arc:     
         endpoints = arc_segment_conversion.arc_segment_conversion(segment,full_circle=False,is_outer_boundary = is_outer)     
         return endpoints
