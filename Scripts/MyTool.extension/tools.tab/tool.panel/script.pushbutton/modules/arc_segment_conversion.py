@@ -26,12 +26,12 @@ def get_all_circle_coords(segment,n_points = 32,full_circle = True):
     x_center = segment.GetCurve().Center.Multiply(304.8).X
     y_center = segment.GetCurve().Center.Multiply(304.8).Y         
 
-    #if full circle, generate thetas for circle based on n points
+    #if full closed circle, use full circle theta and start at 0
     if full_circle:
         start_theta = 0
-        step_theta = tau
+        full_arc_theta = tau
     
-    #if not closed circle generate thetas from start and end point based on n points
+    #if not closed circle use arc segment theta closest to the desired length, start at startpoint of arc
     else:
         x_start,y_start,x_end,y_end = get_start_end_point(segment)
         arc_length = segment.GetCurve().ApproximateLength * 304.8
@@ -43,17 +43,18 @@ def get_all_circle_coords(segment,n_points = 32,full_circle = True):
         # Swap arc if needed (convex vs concave)
         arc_length_start = get_arc_length(start_theta, end_theta, radius)
         arc_length_end = tau * radius - arc_length_start
-        new_arc_length = arc_length_start
+
         if abs(arc_length_start - arc_length) > abs(arc_length_end - arc_length):
-            new_arc_length = arc_length_end
             end_theta += tau
 
-        n_points = int(math.ceil(n_points / (radius * tau / new_arc_length)))
-        n_points +=1 if n_points <2 else n_points #have a minimum of two segments
-        step_theta = (end_theta - start_theta)
+        #adjust the number of segments based on what percentage of a full circle the arc is (e.g if it is half of a circle, reduce the n_points by 2)
+        n_points = int(math.ceil(n_points * (arc_length/(radius * tau))))
+        if n_points <2: #have a minimum of two segments
+            n_points+=1 
+        full_arc_theta = (end_theta - start_theta)
 
     ##THETAS GENERATED HERE ##
-    thetas = [start_theta + i * step_theta / float(n_points) for i in range(n_points + 1)]
+    thetas = [start_theta + i * full_arc_theta / float(n_points) for i in range(n_points + 1)]
     circle_coords = [get_circle_coord(theta, x_center, y_center, radius) for theta in thetas]
     return circle_coords 
     
@@ -63,5 +64,5 @@ def arc_segment_conversion(segment,is_outer_boundary=False,full_circle=True):
     
     if is_outer_boundary:
         return circle_boundary
-    #If not the outer boundary, need to reverse order of coordinates to be consistent with the rest of the coordinates from Revit
+    #If not the outer boundary, need to reverse order of coordinates to be consistent with the order of the rest of the coordinates from Revit
     return circle_boundary[::-1]

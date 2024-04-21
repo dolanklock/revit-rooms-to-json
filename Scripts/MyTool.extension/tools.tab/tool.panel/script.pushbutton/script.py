@@ -22,8 +22,6 @@ from pyrevit.forms import ProgressBar
 from rpw.ui.forms import Alert, FlexForm, Label, ComboBox, TextBox,Separator, Button, CheckBox
 from rpw.ui.forms.resources import *
 
-
-import json
 import sys
 import datetime
 from modules import get_room_shapes
@@ -98,7 +96,7 @@ if __name__ == "__main__":
     user_dir = forms.pick_folder(title=None, owner=None)
     if user_dir == None: #cancel script on cancel
         GUI.task_terminated()
-        #sys.exit()
+
     root_dir = user_dir +"\\"
     
     with forms.ProgressBar(title='Loading...', indeterminate=True): #show progress bar
@@ -112,5 +110,4 @@ if __name__ == "__main__":
     GUI.task_complete("EXPORT FOLDER LOCATION: \n{}".format(GUI.text_wrap(root_dir+folder_name+"\\")),header="DATA EXPORTED :)") 
     
 
-#TODO: get a way for users to easily get all dependencies
 
