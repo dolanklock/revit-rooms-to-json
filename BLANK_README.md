@@ -80,7 +80,7 @@ A pyRevit add-in that exports room boundaries as well as specified room properti
 ### Built With
 
 * [![Python][Python]][Python-url] (version 3.8)
-* [![Revit][Revit]][Revit-url]
+* [![Revit][Revit]][Revit-url] (Revit 2022+)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
