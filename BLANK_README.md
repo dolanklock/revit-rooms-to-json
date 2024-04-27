@@ -30,14 +30,15 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/dolanklock/revit-rooms-to-json">
     <img src="Scripts/MyTool.extension/Revit Rooms to Json.tab/Json Exports.panel/Rooms.pushbutton/icon.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">Export Revit Room Boundaries to Json and GeoJson</h3>
 
   <p align="center">
-    project_description
+  A pyRevit add-in that exports room boundaries as well as specified room properties into .json (topojson) or .geojson files. The exported room information contains the "Number" and "Level" properties as default. This add-in allows users to use the exported Revit room plans to create data visualizations (such as for a Power BI report or a React app). For further information on the uses, visit the [Usage](#Usage) section.
+    
     <br />
     <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
     <br />
