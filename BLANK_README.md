@@ -106,7 +106,7 @@ Install the programs and software below
   Go down to the "Files" section on the page and select / download the correct installer based on your operating system.
   For example, if you are on windows machine that you would select the "Windows x86 executable installer" (see image below)
 
-  <img src="python-file.png">
+  <img src="python-file.png" alt="Python Files" width="500" height="auto">
 ### Installation
 1. Clone the repo
    ```sh
