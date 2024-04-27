@@ -90,7 +90,7 @@ A pyRevit add-in that exports room boundaries as well as specified room properti
 ### Built With
 
 * [![Next][Next.js]][Next-url]
-* [![Revit][Revit]][https://www.autodesk.com/ca-en/products/revit/overview?term=1-YEAR&tab=subscriptionl]
+* Revit [https://www.autodesk.com/ca-en/products/revit/overview?term=1-YEAR&tab=subscriptionl]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
