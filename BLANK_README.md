@@ -88,13 +88,11 @@ A pyRevit add-in that exports room boundaries as well as specified room properti
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
 <!-- ### Prerequisites -->
-
-Install the programs and software below
+### Prerequisites
+Install the required programs and software below
 * pyRevit
   ```sh
   https://pyrevitlabs.notion.site/Install-pyRevit-98ca4359920a42c3af5c12a7c99a196d
@@ -112,9 +110,9 @@ Install the programs and software below
    ```sh
    https://github.com/dolanklock/revit-rooms-to-json.git
    ```
-2. Install NPM packages
+2. Install packages
    ```sh
-   npm install requirements.txt
+   pip install requirements.txt
    ```
 
 
