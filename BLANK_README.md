@@ -123,6 +123,8 @@ Install the programs and software below
   ```sh
   https://www.python.org/downloads/release/python-380/
   ```
+  Go down to the "Files" section on the page and select / download the correct installer based on your operating system.
+  For example, if you are on windows machine that you would select the windows
 ### Installation
 1. Clone the repo
    ```sh
