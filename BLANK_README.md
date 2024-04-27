@@ -123,7 +123,7 @@ Install the required programs and software below
   https://www.python.org/downloads/release/python-380/
   ```
   Go down to the "Files" section on the page and select / download the correct installer based on your operating system.
-  For example, if you are on windows machine that you would select the "Windows x86 executable installer" (see image below)
+  For example, if you are on windows machine then you would select this installer - "Windows x86 executable installer" (see image below)
 
   <img src="python-files.png">
 ### Installation
