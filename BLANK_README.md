@@ -34,20 +34,17 @@
     <img src="Scripts/MyTool.extension/Revit Rooms to Json.tab/Json Exports.panel/Rooms.pushbutton/icon.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Export Revit Room Boundaries to Json and GeoJson</h3>
-
-  <p align="center">
-  A pyRevit add-in that exports room boundaries as well as specified room properties into .json (topojson) or .geojson files. The exported room information contains the "Number" and "Level" properties as default. This add-in allows users to use the exported Revit room plans to create data visualizations (such as for a Power BI report or a React app). For further information on the uses, visit the [Usage](#Usage) section.
+<h3 align="center">Export Revit Room Boundaries to Json and GeoJson</h3>  
     
-    <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    *** <br />
+    *** <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    *** <br />
+    *** <br />
+    *** <a href="https://github.com/github_username/repo_name">View Demo</a>
+    *** ·
+    *** <a href="https://github.com/github_username/repo_name/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    *** ·
+    *** <a href="https://github.com/github_username/repo_name/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
@@ -83,25 +80,17 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+A pyRevit add-in that exports room boundaries as well as specified room properties into .json (topojson) or .geojson files. The exported room information contains the "Number" and "Level" properties as default. This add-in allows users to use the exported Revit room plans to create data visualizations (such as for a Power BI report or a React app). For further information on the uses, visit the [Usage](#Usage) section.
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+*** Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, *** `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 ### Built With
 
 * [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![Revit][Revit]][https://www.autodesk.com/ca-en/products/revit/overview?term=1-YEAR&tab=subscriptionl]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
