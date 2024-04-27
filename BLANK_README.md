@@ -229,5 +229,5 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com
-[Revit]:https://seeklogo.com/images/A/autodesk-revit-logo-2F89D6AE1E-seeklogo.com.png
+[Revit]:https://img.shields.io/badge/Revit-blue
 [Revit-url]:https://www.autodesk.com/ca-en/products/revit/overview?term=1-YEAR&tab=subscription
