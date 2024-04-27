@@ -34,18 +34,8 @@
     <img src="Scripts/MyTool.extension/Revit Rooms to Json.tab/Json Exports.panel/Rooms.pushbutton/icon.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Export Revit Room Boundaries to Json and GeoJson</h3>  
-    
-    *** <br />
-    *** <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
-    *** <br />
-    *** <br />
-    *** <a href="https://github.com/github_username/repo_name">View Demo</a>
-    *** ·
-    *** <a href="https://github.com/github_username/repo_name/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    *** ·
-    *** <a href="https://github.com/github_username/repo_name/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
-  </p>
+<h3 align="center">Export Revit Room Boundaries to Json and GeoJson</h3>   
+  <br />
 </div>
 
 
@@ -90,6 +80,8 @@ A pyRevit add-in that exports room boundaries as well as specified room properti
 ### Built With
 
 * [![Next][Next.js]][Next-url]
+* [![Revit][Revit][Revit-url]
+
 * Revit [https://www.autodesk.com/ca-en/products/revit/overview?term=1-YEAR&tab=subscriptionl]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -236,4 +228,6 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+[JQuery-url]: https://jquery.com
+[Revit]:https://seeklogo.com/images/A/autodesk-revit-logo-2F89D6AE1E-seeklogo.com.png
+[Revit-url]:https://www.autodesk.com/ca-en/products/revit/overview?term=1-YEAR&tab=subscription
