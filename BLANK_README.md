@@ -82,9 +82,6 @@ A pyRevit add-in that exports room boundaries as well as specified room properti
 * [![Python][Python]][Python-url] 
 * [![Revit][Revit]][Revit-url]
 
-
-* Revit [https://www.autodesk.com/ca-en/products/revit/overview?term=1-YEAR&tab=subscriptionl]
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -232,6 +229,5 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [JQuery-url]: https://jquery.com
 [Revit]:https://img.shields.io/badge/Revit-blue?logo=autodeskrevit&logoColor=%23186BFF&logoSize=auto&color=white
 [Revit-url]:https://www.autodesk.com/ca-en/products/revit/overview?term=1-YEAR&tab=subscription
-[python]:[https://img.shields.io/badge/Revit-blue?logo=autodeskrevit&logoColor=%23186BFF&logoSize=auto&color=white](https://img.shields.io/badge/Python-blue?logo=python&logoColor=%233776AB&logoSize=auto&color=white
-)
+[python]: https://img.shields.io/badge/Python-blue?logo=python&logoColor=%233776AB&logoSize=auto&color=white
 [python-url]:https://www.python.org/downloads/
