@@ -113,7 +113,7 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
+<!-- ### Prerequisites -->
 
 Install the programs and software below
 * pyRevit
@@ -125,7 +125,8 @@ Install the programs and software below
   https://www.python.org/downloads/release/python-380/
   ```
   Go down to the "Files" section on the page and select / download the correct installer based on your operating system.
-  For example, if you are on windows machine that you would select the windows
+  For example, if you are on windows machine that you would select the "Windows x86 executable installer" (see image below)
+  
 ### Installation
 1. Clone the repo
    ```sh
