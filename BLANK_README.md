@@ -106,11 +106,22 @@ Install the required programs and software below
 
   <img src="python-files.png">
 ### Installation
-1. Clone the repo
+1. Clone the repo. You need to clone the repository in order to get the a local copy of the repo on to your computer. Then 
+   you can load this add-in in to Revit through pyRevit (see step 2)
+   
+2. How to clone a repository
    ```sh
-   https://github.com/dolanklock/revit-rooms-to-json.git
+   https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
    ```
-2. Install packages
+   After you clone the repository, go to pyRevit tab in Revit and select the pyRevit down arrow
+   <img src="pyrevit-step1.png">
+   Select settings
+   <img src="pyrevit-step2.png">
+   Select "add folder" and navigate to where you saved the cloned repository. You should navigate to the directory just before the .extensions folder and select ok.
+   You should see a folder path something like this *Make sure the path is to the directory just before the .extensions directory
+   <img src="pyrevit-step3.png">
+   
+3. Install packages
    ```sh
    pip install requirements.txt
    ```
