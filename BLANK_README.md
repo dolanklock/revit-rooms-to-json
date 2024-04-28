@@ -131,10 +131,14 @@ Install the required programs and software below
 
    <img src="readme-images/pyrevit-step4.png">
 3. Install packages
+   #TODO: add instructions for virtual environment setup then install requirements packages there?
    ```sh
    pip install requirements.txt
    ```
-
+   #TODO: add instructions for pip installing requirements file
+   
+4. Update environment variables
+   #TODO: add steps for adding "PYTHONPATH" to environemnt variables. If create virtual environment will that affect where this is pathed to?? should path to venv?
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
