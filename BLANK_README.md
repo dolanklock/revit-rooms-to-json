@@ -122,8 +122,8 @@ Install the required programs and software below
 
    <img src="readme-images/pyrevit-step2.png">
 
-   Select "add folder" and navigate to where you saved the cloned repository. You should navigate to the directory just before the .extensions folder and select ok.
-   You should see a folder path something like this *Make sure the path is to the directory just before the .extensions directory.
+   Select "Add Folder" and navigate to where you saved the cloned repository. You should navigate to the directory just before the .extensions folder and select ok.
+   You should see a folder path something like this *Make sure the path is to the directory just before the .extensions directory. Select "Save Settings and Reload"
 
    <img src="readme-images/pyrevit-step3.png" width=auto height="700">
    
