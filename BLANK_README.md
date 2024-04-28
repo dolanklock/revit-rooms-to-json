@@ -127,6 +127,9 @@ Install the required programs and software below
 
    <img src="readme-images/pyrevit-step3.png" width=auto height="700">
    
+   You should now see the toolbar loaded!
+
+   <img src="readme-images/pyrevit-step4.png">
 3. Install packages
    ```sh
    pip install requirements.txt
