@@ -104,7 +104,7 @@ Install the required programs and software below
   Go down to the "Files" section on the page and select / download the correct installer based on your operating system.
   For example, if you are on windows machine then you would select this installer - "Windows x86 executable installer" (see image below)
 
-  <img src="python-files.png">
+  <img src="readme-images/python-files.png">
 
 ### Installation
 1. Clone the repo. You need to clone the repository in order to get the a local copy of the repo on to your computer. Then 
@@ -116,16 +116,16 @@ Install the required programs and software below
    ```
    After you clone the repository, go to pyRevit tab in Revit and select the pyRevit down arrow
 
-   <img src="pyrevit-step1.png">
+   <img src="readme-images/pyrevit-step1.png">
 
    Select settings
 
-   <img src="pyrevit-step2.png">
+   <img src="readme-images/pyrevit-step2.png">
 
    Select "add folder" and navigate to where you saved the cloned repository. You should navigate to the directory just before the .extensions folder and select ok.
    You should see a folder path something like this *Make sure the path is to the directory just before the .extensions directory.
 
-   <img src="pyrevit-step3.png" width=auto height="700">
+   <img src="readme-images/pyrevit-step3.png" width=auto height="700">
    
 3. Install packages
    ```sh
