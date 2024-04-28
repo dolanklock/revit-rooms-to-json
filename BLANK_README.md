@@ -146,7 +146,7 @@ Install the required programs and software below
    Select "add folder" and navigate to where you saved the cloned repository. You should navigate to the directory just before the .extensions folder and select ok.
    You should see a folder path something like this *Make sure the path is to the directory just before the .extensions directory.
 
-   <img src="pyrevit-step3.png" width=auto height="1000">
+   <img src="pyrevit-step3.png" width=auto height="700">
    
 3. Install packages
    ```sh
