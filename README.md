@@ -75,8 +75,6 @@
 ## About The Project
 A pyRevit add-in that exports room boundaries as well as specified room properties into .json (topojson) or .geojson files. The exported room information contains the "Number" and "Level" properties as default. This add-in allows users to use the exported Revit room plans to create data visualizations (such as for a Power BI report or a React app). For further information on the uses, visit the [Usage](#Usage) section.
 
-*** Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, *** `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
