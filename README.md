@@ -153,11 +153,11 @@ Install the required programs and software below
 Select rooms, export file type, and data exported (defaults to room Number and room Level):
 <br>
 **NOTE: "Ignore inner boundaries" is the option of simplifying the shape by ignoring inner boundaries** 
-   <img src="readme-images/revit-rooms-to-json-ui.png">
+   <img src="readme-images/revit-rooms-to-json-ui.png" width="300"/>
     
    <img src="readme-images/export-boundaries-option.png">
    
-**1. Power BI**
+### 1. Power BI
 * Use the add-on to export topojson files.
 * **STEP 1: To import data from revit rooms into Power BI:**
     * Go to "Get data from another source" option, choose JSON, navigate to your topojson file and "Open". This should open the *Power Query Editor* window.
@@ -189,8 +189,8 @@ in
     * In *Build visual*, the "Number" field should be dragged under "Location". Any distinct field can be used, as long as it can act as keys between the data and the room geometries.
     * In *Format your visual* go to Map settings > Map type > Custom map. Under *Add a map type* browse for your topojson file.
     * Go back to *Build visual* to link additional data to the floor plan. For example, drag the "Area" field under "Color saturation".
- 
-**EXAMPLE**
+ ---
+**EXAMPLE**<br>
 Fields exported from Revit include Number, Level, and Area. Area was converted to a decimal number type of data in the *Table view* and used in the slicer visual. The slicer is adujsted to highlight rooms matching the specified area range.
 <img src="readme-images/pbi-report-example.png">
 <br>
@@ -199,9 +199,9 @@ Fields exported from Revit include Number, Level, and Area. Area was converted t
 
   **NOTE: Data coming from any external source can be linked to the floor plan (i.e imported data from an excel), as long as there is a column field in that external data that will act as the linking key with the field specified under "Location" under *Build visual*.<br>
 For example, an external source containing a Number column that correlates with the topjson Number field dragged under "Location"**
-   
-   
-3. React JS
+
+---   
+### 2. React JS
 * Use the add-on to export topojson files.
 * Import geojson files to react applications using react leaflet
 >https://react-leaflet.js.org/
