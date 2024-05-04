@@ -58,6 +58,10 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+        <ul>
+        <li><a href="#1. Power BI">Power BI</a></li>
+        <li><a href="#2. React JS">React JSn</a></li>
+      </ul>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -147,7 +151,7 @@ Install the required programs and software below
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-*This add-on was originaly designed to use Revit room geometries in Power BI reports, but can be applied to any program or script using geojson (.geojson) or topojson (.json) files.* 
+*This add-on was originaly designed to use Revit room geometries in Power BI reports, but can be applied to any program or script using geojson (.geojson) or topojson (.json) files. Currently the add-on does not support ellipse shaped Revit room geometries.* 
 <br>
 <br>
 Select rooms, export file type, and data exported (defaults to room Number and room Level):
@@ -189,6 +193,9 @@ in
     * In *Build visual*, the "Number" field should be dragged under "Location". Any distinct field can be used, as long as it can act as keys between the data and the room geometries.
     * In *Format your visual* go to Map settings > Map type > Custom map. Under *Add a map type* browse for your topojson file.
     * Go back to *Build visual* to link additional data to the floor plan. For example, drag the "Area" field under "Color saturation".
+
+  **NOTE: Data coming from any external source can be linked to the floor plan (i.e imported data from an excel), as long as there is a column field in that external data that will act as the linking key with the field specified under     "Location" under *Build visual*.<br>
+  For example, an external source containing a Number column that correlates with the topjson Number field dragged under "Location"**
  ---
 **EXAMPLE**<br>
 Fields exported from Revit include Number, Level, and Area. Area was converted to a decimal number type of data in the *Table view* and used in the slicer visual. The slicer is adujsted to highlight rooms matching the specified area range.
@@ -196,9 +203,6 @@ Fields exported from Revit include Number, Level, and Area. Area was converted t
 <br>
 **For more information regarding the *Shape map* visual go to**
 >https://learn.microsoft.com/en-us/power-bi/visuals/desktop-shape-map
-
-  **NOTE: Data coming from any external source can be linked to the floor plan (i.e imported data from an excel), as long as there is a column field in that external data that will act as the linking key with the field specified under "Location" under *Build visual*.<br>
-For example, an external source containing a Number column that correlates with the topjson Number field dragged under "Location"**
 
 ---   
 ### 2. React JS
@@ -212,6 +216,7 @@ For example, an external source containing a Number column that correlates with 
 
 <!-- CONTRIBUTING -->
 ## Contributing
+Currently the add-on does not support ellipse shaped Revit room geometries. 
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -240,22 +245,15 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Anna Milczarek [go to github](https://github.com/ania-m) - email: anna_milczarek@hotmail.com
+<br>
+Dolan Klock [go to github](https://github.com/dolanklock) - email: 
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
+Project Link: https://github.com/dolanklock/revit-rooms-to-json
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 
 
 
