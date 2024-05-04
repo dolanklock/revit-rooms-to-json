@@ -58,7 +58,6 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -148,27 +147,67 @@ Install the required programs and software below
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+*This add-on was originaly designed to use Revit room geometries in Power BI reports, but can be applied to any program or script using geojson (.geojson) or topojson (.json) files.* 
+<br>
+<br>
+Select rooms, export file type, and data exported (defaults to room Number and room Level):
+<br>
+**NOTE: "Ignore inner boundaries" is the option of simplifying the shape by ignoring inner boundaries** 
+   <img src="readme-images/revit-rooms-to-json-ui.png">
+    
+   <img src="readme-images/export-boundaries-option.png">
+   
+**1. Power BI**
+* Use the add-on to export topojson files.
+* **STEP 1: To import data from revit rooms into Power BI:**
+    * Go to "Get data from another source" option, choose JSON, navigate to your topojson file and "Open". This should open the *Power Query Editor* window.
+    * You will see an imported table, and some automatic steps created under "Applied Steps" on the right. Ignore this and go to Advanced Editor at the top Home ribbon.
+        <br>
+        --> replace the contents with the code below.
+        <br>
+        --> at the first row under "let" replace:
+        **PATH TO TOPOJSON** and **TOPOSON FILE NAME**
+        <br>
+        --> at the last row under "let" replace at both instances:
+        **{"Number","Level"}** by all Revit properties to be linked to the room plan.
+  
+```sh
+let
+    Source = Json.Document(File.Contents("PATH TO TOPOJSON\TOPOJSON FILE NAME.json")),
+    #"Converted to Table" = Table.FromRecords({Source}),
+    #"Removed Columns" = Table.RemoveColumns(#"Converted to Table",{"bbox", "arcs", "type"}),
+    #"Expanded objects" = Table.ExpandRecordColumn(#"Removed Columns", "objects", {"object_name"}, {"object_name"}),
+    #"Expanded object_name" = Table.ExpandRecordColumn(#"Expanded objects", "object_name", {"geometries"}, {"geometries"}),
+    #"Expanded geometries" = Table.ExpandListColumn(#"Expanded object_name", "geometries"),
+    #"Expanded geometries1" = Table.ExpandRecordColumn(#"Expanded geometries", "geometries", {"properties"}, {"properties"}),
+    #"Expanded properties" = Table.ExpandRecordColumn(#"Expanded geometries1", "properties", {"Number", "Level"}, {"Number", "Level"})
+in
+    #"Expanded properties"
+```
+* **STEP 2: To link room geometries with data:**
+    * Place a *Shape map* visual on the report. **NOTE:** At the time of this writing, *Shape map* visual is a beta feature, it must be enabled by checking its checkbox by going to File > Options and settings > Options > Preview features > Shape map visual (https://learn.microsoft.com/en-us/power-bi/visuals/desktop-shape-map)
+    * In *Build visual*, the "Number" field should be dragged under "Location". Any distinct field can be used, as long as it can act as keys between the data and the room geometries.
+    * In *Format your visual* go to Map settings > Map type > Custom map. Under *Add a map type* browse for your topojson file.
+    * Go back to *Build visual* to link additional data to the floor plan. For example, drag the "Area" field under "Color saturation".
+ 
+**EXAMPLE**
+Fields exported from Revit include Number, Level, and Area. Area was converted to a decimal number type of data in the *Table view* and used in the slicer visual. The slicer is adujsted to highlight rooms matching the specified area range.
+<img src="readme-images/pbi-report-example.png">
+<br>
+**For more information regarding the *Shape map* visual go to**
+>https://learn.microsoft.com/en-us/power-bi/visuals/desktop-shape-map
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+  **NOTE: Data coming from any external source can be linked to the floor plan (i.e imported data from an excel), as long as there is a column field in that external data that will act as the linking key with the field specified under "Location" under *Build visual*.<br>
+For example, an external source containing a Number column that correlates with the topjson Number field dragged under "Location"**
+   
+   
+3. React JS
+* Use the add-on to export topojson files.
+* Import geojson files to react applications using react leaflet
+>https://react-leaflet.js.org/
+>https://stackoverflow.com/questions/60470752/importing-geojson-file-to-react-leaflet   
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- CONTRIBUTING -->
