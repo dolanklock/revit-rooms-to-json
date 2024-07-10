@@ -102,11 +102,15 @@ Install the required programs and software below
   ```sh
   https://www.python.org/downloads/release/python-380/
   ```
+ 
   Go down to the "Files" section on the page and select / download the correct installer based on your operating system.
   For example, if you are on windows machine then you would select this installer - "Windows x86 executable installer" (see image below)
 
   <img src="readme-images/python-files.png">
 
+  **!!! IMPORTANT NOTE !!!** Make sure to click "add to PATH"
+  <img src="readme-images/path-checkbox.png">
+  
 ### Installation
 1. Clone the repo. You need to clone the repository in order to get the a local copy of the repo on to your computer. Then 
    you can load this add-in in to Revit through pyRevit (see step 2)
@@ -132,13 +136,18 @@ Install the required programs and software below
 
    <img src="readme-images/pyrevit-step4.png">
 3. Install packages
-   #TODO: add instructions for virtual environment setup then install requirements packages there?
-   ```sh
-   pip install requirements.txt
+   Launch a terminal (type"terminal" in the windows search bar).
+   Navigate to folder with "requirements.txt" file: copy, paste, ENTER in terminal:  
+      ```sh
+   cd Y:\GitHub Clone Repo\revit-rooms-to-json\
    ```
-   #TODO: add instructions for pip installing requirements file
+   Install dependant libraries: copy, paste, ENTER in terminal:  
+   ```sh
+   pip install -r requirements.txt
+   ```
+
    
-4. Update environment variables
+5. Update environment variables
    #TODO: add steps for adding "PYTHONPATH" to environemnt variables. If create virtual environment will that affect where this is pathed to?? should path to venv?
    ```
 
