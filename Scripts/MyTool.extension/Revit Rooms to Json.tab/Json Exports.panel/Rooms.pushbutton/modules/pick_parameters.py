@@ -4,8 +4,11 @@ import Autodesk
 from Autodesk.Revit import DB
 from pyrevit import forms
 from System.Collections.Generic import List
+uiapp = __revit__
+uidoc = uiapp.ActiveUIDocument
+doc = uiapp.ActiveUIDocument.Document
 
-def pick_parameters(doc,picked_params=["Number","Level"]):
+def pick_parameters(picked_params=["Number","Level"]):
     """pick parameters function - accepts array of default parameters 
 
     Args:
