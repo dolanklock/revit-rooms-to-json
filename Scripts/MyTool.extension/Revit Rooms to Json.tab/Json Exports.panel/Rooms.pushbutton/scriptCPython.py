@@ -1,9 +1,10 @@
-#! python3
+#! python3.8
 
 import sys
 import pickle
 from modules import rvt_room_shapes
-
+import os 
+import json
 
 # CODE BELOW HERE #
 #Receive temp file path from sent dict

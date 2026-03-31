@@ -26,5 +26,10 @@ def send_dict(sent_dict, pathToScript):
     startup_info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
     # Run the command and capture the output
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startup_info)
+    # process = subprocess.check_output(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startup_info)
+    #     # Run the command and capture the output
+    try:
+        process = subprocess.check_output(cmd, stderr=subprocess.STDOUT, startupinfo=startup_info, shell=True)
+    except subprocess.CalledProcessError as grepexc:                                                                                                   
+        print("error code", grepexc.returncode, grepexc.output)
 
