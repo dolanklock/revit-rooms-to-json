@@ -41,7 +41,7 @@ def generate_endpoints(segment,is_outer):
     endpoints = [list(get_start_end_point(segment)[-2:])]
     return endpoints
 
-def get_room_shapes(rooms, parameters, outside_boundary_only=True,doc_name_dict = {}):
+def get_room_shapes(rooms, parameters, outside_boundary_only=True):
     """_summary_
 
     Args:
@@ -65,10 +65,7 @@ def get_room_shapes(rooms, parameters, outside_boundary_only=True,doc_name_dict 
                 else:
                     room_data[param] = room.LookupParameter(param).AsValueString() if room.LookupParameter(param).AsValueString() != None else ""
             except:
-                if param == "Revit Model":
-                    room_data[param] = doc_name_dict[room]
-                else:
-                    room_data[param] = ""
+                room_data[param] = ""
 
         #Get room shapes from revit
         boundary_segments = room.GetBoundarySegments(DB.SpatialElementBoundaryOptions())
@@ -96,10 +93,6 @@ def get_room_shapes(rooms, parameters, outside_boundary_only=True,doc_name_dict 
 
         # print(boundary_locations)
         room_data["geometry"] = boundary_locations
-        app = __revit__.Application       
-        if int(app.VersionBuild.split(".")[0]) >= 26:
-            output[str(room.Id)] = room_data
-        else:
-            output[str(room.Id.IntegerValue)] = room_data
+        output[str(room.Id.IntegerValue)] = room_data
 
     return output
